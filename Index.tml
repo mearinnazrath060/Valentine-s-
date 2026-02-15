@@ -14,8 +14,8 @@ body {
     margin: 0;
 }
 
-h1 { 
-    color: #7b5ea7; 
+h1 {
+    color: #7b5ea7;
     font-size: 1.8em;
 }
 
@@ -49,23 +49,23 @@ button {
 }
 
 #letter {
-    margin-top:20px;
-    display:none;
-    font-style:italic;
-    color:#6a4c93;
-    animation: fadeIn 3s ease-in-out;
+    margin-top: 20px;
+    display: none;
+    font-style: italic;
+    color: #6a4c93;
+    animation: fadeIn 2s ease-in-out;
 }
 
 @keyframes fadeIn {
-    from {opacity:0;}
-    to {opacity:1;}
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 canvas {
     position: fixed;
-    top:0;
-    left:0;
-    pointer-events:none;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 </style>
 </head>
@@ -94,7 +94,7 @@ I love you — always. ✨
 <canvas id="confetti"></canvas>
 
 <script>
-const birthday = new Date("Feb 19, 2026 00:00:00").getTime();
+const birthday = new Date("2026-02-19T00:00:00").getTime();
 
 const blessings = [
 {date:"2026-02-15", verse:"God is within you, you will not fall. — Psalm 46:5"},
@@ -104,59 +104,59 @@ const blessings = [
 {date:"2026-02-19", verse:"🎉 May your joy be full and your path blessed!"}
 ];
 
-setInterval(()=>{
+function updateCountdown() {
     const now = new Date().getTime();
     const diff = birthday - now;
-    let d=Math.floor(diff/(1000*60*60*24));
-    let h=Math.floor((diff/(1000*60*60))%24);
-    let m=Math.floor((diff/(1000*60))%60);
-    let s=Math.floor((diff/1000)%60);
-    document.getElementById("countdown").innerHTML=
-    `⏳ ${d}d ${h}h ${m}m ${s}s until your day of joy`;
-},1000);
 
-function revealBlessing(){
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 It's your special day!";
+        return;
+    }
+
+    let d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    let m = Math.floor((diff / (1000 * 60)) % 60);
+    let s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+        `⏳ ${d}d ${h}h ${m}m ${s}s until your day of joy`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+function revealBlessing() {
     const today = new Date().toISOString().split("T")[0];
-    const b = blessings.find(x=>x.date===today);
     const blessingBox = document.getElementById("blessingBox");
     const letter = document.getElementById("letter");
-    blessingBox.style.display="block";
 
-    if(b){
-        blessingBox.innerHTML="🕊️<br><br>"+b.verse;
-        if(today==="2026-02-19"){
-            letter.style.display="block";
+    blessingBox.style.display = "block";
+
+    const b = blessings.find(x => x.date === today);
+
+    if (b) {
+        blessingBox.innerHTML = "🕊️<br><br>" + b.verse;
+
+        if (today === "2026-02-19") {
+            letter.style.display = "block";
             startConfetti();
         }
     } else {
-        blessingBox.innerHTML="✨ Today's blessing is still being written in heaven ✨";
+        blessingBox.innerHTML =
+            "✨ Today's blessing is still being written in heaven ✨";
     }
 }
 
-function startConfetti(){
-    const canvas=document.getElementById("confetti");
-    const ctx=canvas.getContext("2d");
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-    let pieces=[];
-    for(let i=0;i<80;i++){
-        pieces.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2});
-    }
-    function draw(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle="#cfa8ff";
-        pieces.forEach(p=>{
-            ctx.beginPath();
-            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fill();
-            p.y+=1;
-            if(p.y>canvas.height) p.y=0;
-        });
-    }
-    setInterval(draw,20);
-}
-</script>
+function startConfetti() {
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
 
-</body>
-</html>
-<html></html>
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let pieces = [];
+
+    for (let i = 0; i < 80; i++) {
+        pieces.push({
+            x: Math.random() * canvas*
+                
